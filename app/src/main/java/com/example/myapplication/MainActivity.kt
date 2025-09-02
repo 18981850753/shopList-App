@@ -274,12 +274,7 @@ class MainActivity : AppCompatActivity() {
             val fruitNameTextView = TextView(this).apply {
                 text = name
                 textSize = 18f
-                setOnClickListener {
-                    // 跳转到商品详情页面
-                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                    intent.putExtra("NAME", name)
-                    startActivity(intent)
-                }
+                // 移除原来的点击监听器
             }
 
             // 计算并显示价格信息
@@ -331,14 +326,23 @@ class MainActivity : AppCompatActivity() {
                     }
                     popupMenu.show()
                 }
-
             }
 
             itemLayout.addView(infoLayout)
             itemLayout.addView(moreButton)
+
+            // 将点击监听器设置到整个itemLayout上
+            itemLayout.setOnClickListener {
+                // 跳转到商品详情页面
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra("NAME", name)
+                startActivity(intent)
+            }
+
             containerRecords.addView(itemLayout)
         }
     }
+
 
     override fun onResume() {
         super.onResume()
